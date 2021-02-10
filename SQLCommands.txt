@@ -1,0 +1,104 @@
+CREATE TABLE employees(
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR2(250) NOT NULL,
+    birth_year INT NOT NULL,
+    address VARCHAR2(250) NOT NULL,
+    gender VARCHAR2(20) NOT NULL,
+    job_status VARCHAR2(250) NOT NULL
+);
+CREATE TABLE transactions(
+    product_id INT PRIMARY KEY,
+    transaction_id  INT NOT NULL,
+    employee_id INT NOT NULL
+);
+
+CREATE TABLE products(
+    product_id INT PRIMARY KEY,
+    warehouse_id int NOT NULL,
+    stock INT NOT NULL,
+    product_name VARCHAR2(250) NOT NULL,
+    description VARCHAR2(250) NOT NULL,
+    
+    CONSTRAINT product_place UNIQUE(product_id, warehouse_id)
+);
+
+CREATE TABLE users_log(
+    username VARCHAR2(250),
+    event VARCHAR(250),
+    dateOfAction DATE
+);
+
+CREATE TABLE users(
+	username VARCHAR2(250) PRIMARY KEY,
+	password VARCHAR2(250) NOT NULL
+);
+/
+CREATE OR REPLACE PROCEDURE SP_INSERT_TESTEMPLOYEE(
+    p_Count IN INT 
+) AS
+v_id INT;
+CURSOR users_cursor IS
+    SELECT
+    "A1"."EMPLOYEE_ID" "EMPLOYEE_ID"
+FROM
+    "JEDA"."EMPLOYEES" "A1";
+BEGIN
+    OPEN users_cursor;
+        LOOP
+            FETCH users_cursor INTO v_id;
+            EXIT WHEN users_cursor%NOTFOUND;
+        END LOOP;
+        IF(users_cursor%ROWCOUNT = 0)THEN
+            v_id := 0;
+        END IF;
+    ClOSE users_cursor;
+    v_id := v_id + 1;
+
+    FOR i IN 1..p_Count LOOP
+        INSERT INTO employees VALUES(v_id,'TestEmployee','1992','AddressT','GenderT','StatusT');
+
+         OPEN users_cursor;
+            LOOP
+                FETCH users_cursor INTO v_id;
+                EXIT WHEN users_cursor%NOTFOUND;
+            END LOOP;
+            IF(users_cursor%ROWCOUNT = 0)THEN
+                v_id := 0;
+            END IF;
+        ClOSE users_cursor;
+        v_id := v_id + 1;
+    END LOOP;
+END SP_INSERT_TESTEMPLOYEE;
+/
+create or replace FUNCTION sf_checkProductId(
+    inp_product_id products.product_id%TYPE
+)RETURN INT
+IS 
+BEGIN
+    IF(LENGTH(inp_product_id) <> 8) THEN
+        RETURN 0;
+    END IF;
+    RETURN 1;
+END sf_checkProductId;
+/
+create or replace FUNCTION sf_checkWarehouseId(
+    inp_warehouse_id products.warehouse_id%TYPE
+)RETURN INT
+IS 
+BEGIN
+    IF(LENGTH(inp_warehouse_id) <> 8) THEN
+        RETURN 0;
+    END IF;
+    RETURN 1;
+END sf_checkWarehouseId;
+/
+create or replace NONEDITIONABLE TRIGGER user_log
+AFTER LOGON ON SCHEMA
+BEGIN
+  INSERT INTO users_log VALUES(
+    USER,
+    ora_sysevent,
+    sysdate
+  );
+  COMMIT;
+END;

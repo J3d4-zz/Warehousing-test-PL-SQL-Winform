@@ -1,0 +1,12 @@
+D:\Work\ADB2\Warehousing\Warehousing\bin\Debug\Warehousing.exe.config
+D:\Work\ADB2\Warehousing\Warehousing\bin\Debug\Warehousing.exe
+D:\Work\ADB2\Warehousing\Warehousing\bin\Debug\Warehousing.pdb
+D:\Work\ADB2\Warehousing\Warehousing\bin\Debug\Oracle.ManagedDataAccess.dll
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.csprojAssemblyReference.cache
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.Form1.resources
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.Properties.Resources.resources
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.csproj.GenerateResource.cache
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.csproj.CoreCompileInputs.cache
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.csproj.CopyComplete
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.exe
+D:\Work\ADB2\Warehousing\Warehousing\obj\Debug\Warehousing.pdb
